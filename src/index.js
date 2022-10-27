@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { program } from 'commander'
 import inquirer from 'inquirer'
+import reactTemplate from './reactTemplate.js'
 import vueTemplate from './vueTemplate.js'
 
 const init = async () => {
@@ -30,13 +31,25 @@ const init = async () => {
 		])
 		vueTemplate(lang, modules)
 	} else {
+		const { modules } = await inquirer.prompt([
+			{
+				type: 'checkbox',
+				message: 'Select modules:',
+				name: 'modules',
+				default: ['base', 'router', 'redux', 'axios'],
+				choices: ['base', 'router', 'redux', 'axios'],
+			},
+		])
+		reactTemplate(lang, modules)
 	}
 }
 
 program.version('1.0.0')
-program.command('init').description('init a description')
-  .action((name) => {
-    // vueTemplate('ts')
-    init()
-  })
+program
+	.command('init')
+	.description('init a description')
+	.action((name) => {
+		// vueTemplate('ts')
+		init()
+	})
 program.parse(process.argv)

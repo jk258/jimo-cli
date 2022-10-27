@@ -19,6 +19,7 @@ const vueTemplate = (lang, modules) => {
   const options = {
 		base: {
 			from: 'base',
+			customCommand: 'npm install sass --save-dev'
 		},
 		pinia: {
 			from: 'pinia',
